@@ -12,6 +12,8 @@ import sample.cafekiosk.spring.domain.product.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,11 +27,26 @@ public class OrderService {
 
         List<String> productNumbers = request.getProductNumbers();
 
-        List<Product> products = productRepository.findAllByProductNumberIn(productNumbers);
-        Order order = Order.create(products, registeredDateTime);
+        List<Product> duplicateProducts = findProductsBy(productNumbers);
+
+        Order order = Order.create(duplicateProducts, registeredDateTime);
 
         Order savedOrder = orderRepository.save(order);
 
         return OrderResponse.of(savedOrder);
+    }
+
+    private List<Product> findProductsBy(List<String> productNumbers) {
+        // productNumbers 로 product 조회
+        List<Product> products = productRepository.findAllByProductNumberIn(productNumbers);
+
+        // map 으로 변환
+        Map<String, Product> productMap = products.stream()
+                .collect(Collectors.toMap(Product::getProductNumber, p -> p));
+
+        // map을 product로 변환
+        return productNumbers.stream()
+                .map(productMap::get)
+                .collect(Collectors.toList());
     }
 }

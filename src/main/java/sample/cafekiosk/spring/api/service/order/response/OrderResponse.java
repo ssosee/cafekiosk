@@ -1,9 +1,12 @@
 package sample.cafekiosk.spring.api.service.order.response;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.order.Order;
 import sample.cafekiosk.spring.domain.order.OrderStatus;
@@ -19,7 +22,9 @@ import java.util.stream.Collectors;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderResponse {
     private Long id;
+    @DateTimeFormat
     private int totalPrice;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registeredDateTime;
     private List<ProductResponse> products = new ArrayList<>();
 
