@@ -48,14 +48,14 @@ class ProductServiceTest {
                 .build();
 
         // when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toProductCreateService());
 
         // then
         assertThat(productResponse).extracting("productNumber", "productType", "productSellingType", "name", "price")
                 .contains("002", ProductType.HANDMADE, ProductSellingType.SELLING, "카푸치노", 4000);
 
         List<Product> products = productRepository.findAll();
-        assertThat(products).hasSize(1)
+        assertThat(products).hasSize(2)
                 .extracting("productNumber", "productType", "productSellingType", "name", "price")
                 .contains(
                         tuple("001", ProductType.HANDMADE, ProductSellingType.SELLING, "아메리카노", 4000),
@@ -75,7 +75,7 @@ class ProductServiceTest {
                 .build();
 
         // when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toProductCreateService());
 
         // then
         assertThat(productResponse).extracting("productNumber", "productType", "productSellingType", "name", "price")

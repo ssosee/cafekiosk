@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
+import sample.cafekiosk.spring.api.response.ApiResponse;
 import sample.cafekiosk.spring.api.service.order.OrderService;
+import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @RestController
@@ -21,8 +24,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/new")
-    public ResponseEntity<?> createOrder(@RequestBody OrderCreateRequest request) {
-        return new ResponseEntity<>(orderService.createOrder(request, LocalDateTime.now()), HttpStatus.OK);
+    public ApiResponse<OrderResponse> createOrder(@Valid @RequestBody OrderCreateRequest request) {
+        return ApiResponse.of(HttpStatus.OK, orderService.createOrder(request.toServiceRequest(), LocalDateTime.now()));
     }
 
 }

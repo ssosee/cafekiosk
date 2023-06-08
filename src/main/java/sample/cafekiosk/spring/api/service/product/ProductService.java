@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
+import sample.cafekiosk.spring.api.service.product.requset.ProductCreateService;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
@@ -41,7 +42,7 @@ public class ProductService {
     // 동시성 이슈...
     // UUID를 사용하면 동시성 고려 안해도된다...!
     @Transactional
-    public ProductResponse createProduct(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateService request) {
         // productNumber 생성
         // 001, 002, 003, 004 ...
         // DB에서 마지막 저장된 Product의 상품 번호를 읽어와서 +1
