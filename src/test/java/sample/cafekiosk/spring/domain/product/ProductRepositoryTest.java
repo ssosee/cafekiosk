@@ -67,7 +67,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("상품번호로 상품들을 조회한다.")
     void findAllByProductNumberIn() {
         // given
         Product product1 = Product.builder()
