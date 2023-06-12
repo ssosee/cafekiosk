@@ -23,6 +23,9 @@ public class MailService {
                     .content(content)
                     .build()
             );
+
+            mailSendClient.spy();
+
             return true;
         }
 

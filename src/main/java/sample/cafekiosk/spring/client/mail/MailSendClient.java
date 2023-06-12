@@ -11,4 +11,7 @@ public class MailSendClient {
         log.info("메일 전송");
         throw new IllegalArgumentException("메일 전송");
     }
+    public void spy() {
+        log.info("@Spy");
+    }
 }
