@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.ControllerTestSupport;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.OrderService;
 import sample.cafekiosk.spring.domain.product.Product;
@@ -25,18 +26,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(OrderController.class)
-@ActiveProfiles("test")
-class OrderControllerTest {
-
-    @Autowired
-    MockMvc mockMvc;
-    @MockBean
-    OrderService orderService;
-    @MockBean
-    ProductRepository productRepository;
-    @Autowired
-    ObjectMapper om;
+class OrderControllerTest extends ControllerTestSupport {
 
     @Test
     @DisplayName("상품번호를 받아 주문을 생성한다.")

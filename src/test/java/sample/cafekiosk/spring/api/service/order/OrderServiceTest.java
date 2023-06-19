@@ -1,14 +1,11 @@
 package sample.cafekiosk.spring.api.service.order;
 
-import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
@@ -25,11 +22,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
-@ActiveProfiles("test")
-// @Transactional
-// @DataJpaTest
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
     @Autowired
     OrderService orderService;
     @Autowired
@@ -48,6 +41,11 @@ class OrderServiceTest {
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
         stockRepository.deleteAllInBatch();
+
+//        orderProductRepository.deleteAll();
+//        orderRepository.deleteAll();
+//        productRepository.deleteAll();
+//        stockRepository.deleteAll();
     }
 
     @Test
@@ -109,6 +107,7 @@ class OrderServiceTest {
         Stock stock1 = Stock.create("001", 0);
         Stock stock2 = Stock.create("002", 0);
         Stock stock3 = Stock.create("003", 0);
+
         stockRepository.saveAll(List.of(stock1, stock2, stock3));
 
         OrderCreateRequest request = OrderCreateRequest.builder()

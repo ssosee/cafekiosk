@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import sample.cafekiosk.spring.ControllerTestSupport;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.product.ProductService;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
@@ -25,17 +26,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
-// @AutoConfigureMockMvc
-@WebMvcTest(controllers = ProductController.class)
-@ActiveProfiles("test")
-class ProductControllerTest {
-
-    @Autowired
-    MockMvc mockMvc;
-    @MockBean
-    ProductService productService;
-    @Autowired
-    ObjectMapper om;
+class ProductControllerTest extends ControllerTestSupport {
 
    @Test
    @DisplayName("신규 상품을 등록한다.")

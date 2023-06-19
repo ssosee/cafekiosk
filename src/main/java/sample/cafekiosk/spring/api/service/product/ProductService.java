@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductNumberFactory productNumberFactory;
 
     // 상품 조회
     public List<ProductResponse> getSellingProducts() {
@@ -47,23 +48,11 @@ public class ProductService {
         // 001, 002, 003, 004 ...
         // DB에서 마지막 저장된 Product의 상품 번호를 읽어와서 +1
 
-        String nextNumber = createNextNumber();
+        String nextNumber = productNumberFactory.createNextNumber();
 
         Product product = request.toEntity(nextNumber);
         Product savedProduct = productRepository.save(product);
 
         return ProductResponse.of(savedProduct);
-    }
-
-    private String createNextNumber() {
-        String latestProductNumber = productRepository.findLatestProductNumber();
-
-        if(latestProductNumber == null) return "001";
-
-        int latestProductNumberInt = Integer.parseInt(latestProductNumber);
-        latestProductNumberInt += 1;
-
-        // 9 -> 009, 10 -> 010
-        return String.format("%03d", latestProductNumberInt);
     }
 }
