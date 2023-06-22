@@ -22,7 +22,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/new")
-    public ApiResponse<?> createProduct(@Valid @RequestBody ProductCreateRequest request) {
+    public ApiResponse<ProductResponse> createProduct(@Valid @RequestBody ProductCreateRequest request) {
         return ApiResponse.of(HttpStatus.OK, productService.createProduct(request.toProductCreateService()));
     }
 

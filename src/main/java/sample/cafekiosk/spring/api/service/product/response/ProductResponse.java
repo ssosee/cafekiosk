@@ -11,7 +11,7 @@ import sample.cafekiosk.spring.domain.product.ProductType;
 import javax.persistence.*;
 
 @Data
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+// @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductResponse {
     private Long id;
     private String productNumber;
